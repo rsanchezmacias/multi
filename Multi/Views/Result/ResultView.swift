@@ -16,8 +16,10 @@ struct ResultView: View {
             VStack {
                 Text("Your Results")
                     .bold()
-                    .font(.title2)
+                    .font(.title)
+                    .padding()
                 Text("Your score \(viewModel.userScore)/\(viewModel.questions.count)")
+                    .font(.system(size: 18, weight: .semibold))
             }
             
             List(Array(viewModel.questions.enumerated()), id: \.element.id) { (index, question) in
@@ -26,29 +28,24 @@ struct ResultView: View {
             }
             .listStyle(.plain)
             
-            HStack {
-                Button {
-                    viewModel.restart()
-                } label: {
-                    Text("Restart")
-                        .foregroundColor(Color.black)
-                        .frame(width: 80)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(8)
-                }
-                
+            HStack(spacing: 0) {
                 Button {
                     viewModel.stopPractice()
                 } label: {
                     Text("Exit")
-                        .foregroundColor(Color.black)
-                        .frame(width: 80)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(8)
-                    
+                        .frame(maxWidth: .infinity)
+                        .primaryButton()
                 }
+                .padding()
+                
+                Button {
+                    viewModel.restart()
+                } label: {
+                    Text("Restart")
+                        .frame(maxWidth: .infinity)
+                        .primaryButton()
+                }
+                .padding()
             }
         }
     }

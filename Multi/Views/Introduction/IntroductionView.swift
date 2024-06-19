@@ -43,6 +43,7 @@ struct IntroductionView: View {
                     
                     NavigationLink(destination: MainView()) {
                         Text("Get started")
+                            .bold()
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color.pastelAqua)

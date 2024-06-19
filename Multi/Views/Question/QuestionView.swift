@@ -10,70 +10,46 @@ import SwiftUI
 struct QuestionView: View {
     
     @EnvironmentObject var viewModel: MainViewModel
-    @FocusState var isTextFieldFocused: Bool
+    @State var showExitAlert: Bool = false
     
     var body: some View {
         GeometryReader(content: { geometry in
             NavigationStack {
                 ZStack {
-                    VStack(spacing: 24) {
-                        Text(viewModel.questionNumber)
-                            .bold()
-                            .font(.system(size: 32))
-                        
-                        VStack {
-                            HStack {
-                                Image(systemName: "\(viewModel.currentQuestion.left).circle")
-                                    .font(.system(size: 48))
-                                Image(systemName: "x.square")
-                                    .font(.system(size: 32))
-                                Image(systemName: "\(viewModel.currentQuestion.right).circle")
-                                    .font(.system(size: 48))
-                            }
-                            
-                            TextField("=", text: $viewModel.userInput)
-                                .font(.system(size: 40))
-                                .labelsHidden()
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.center)
-                                .roundedBorderTextField()
-                                .padding()
-                                .focused($isTextFieldFocused)
-                            
-                            Button {
-                                viewModel.advance()
-                            } label: {
-                                Text("Next")
-                                    .foregroundColor(Color.black)
-                                    .frame(width: geometry.size.width * 0.40)
-                                    .padding()
-                                    .background(viewModel.userInput.count > 0 ? Color.green : Color.gray)
-                                    .cornerRadius(8)
-                            }
-                            .disabled(viewModel.userInput.count == 0)
-                        }
-                        .frame(width: geometry.size.width * 0.66)
-                    }
-                    .navigationTitle(viewModel.currentQuestion.description)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Button("Exit") {
-                                viewModel.stopPractice()
+                    Color.pastelYellow
+                        .ignoresSafeArea()
+                    
+                    QuestionCardView()
+                        .compositingGroup()
+                        .shadow(radius: 8, x: 6, y: 6)
+                        .frame(width: geometry.size.width * 0.75)
+                        .navigationTitle(viewModel.showResults ? "Results" : viewModel.currentQuestion.description)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button("Exit") {
+                                    showExitAlert = true
+                                }
                             }
                         }
-                    }
-                    .onChange(of: viewModel.showResults) { _, showResults in
-                        guard showResults else {
-                            return
-                        }
-                        
-                        isTextFieldFocused = false
-                    }
                     
                     if viewModel.showResults {
                         resultsOverlay(proxy: geometry)
+                            .ignoresSafeArea()
                     }
+                }
+                .alert("Are you sure you want to exit?", isPresented: $showExitAlert) {
+                    Button { } label: {
+                        Text("Cancel")
+                    }
+                    
+                    Button {
+                        viewModel.stopPractice()
+                    } label: {
+                        Text("Exit")
+                    }
+                } message: {
+                    Text("The progress will not be saved and you will need to restart")
                 }
             }
         })
@@ -84,10 +60,10 @@ struct QuestionView: View {
         ZStack {
             Color.black.opacity(0.5)
             ResultView()
-                .frame(width: proxy.size.width * 0.66, height: proxy.size.height * 0.66)
+                .frame(width: proxy.size.width * 0.80, height: proxy.size.height * 0.66)
                 .padding()
                 .background(Color.white)
-                .clipShape(.rect(cornerRadius: 8))
+                .clipShape(.rect(cornerRadius: 16))
                 .environmentObject(viewModel)
         }
         .frame(maxWidth: .infinity)
