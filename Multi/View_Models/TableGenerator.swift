@@ -8,8 +8,12 @@
 import Foundation
 import Dependencies
 
+/// Protocol defining the requirements for generating multiplication tables
 protocol TableGeneratorProtocol {
     
+    /// Generates a complete multiplication table for the specified range
+    /// - Parameter range: The range of numbers to generate tables for (e.g., 2...12)
+    /// - Returns: A dictionary where the key is the left operand and the value is an array of questions
     func generateTable(for range: ClosedRange<Int>) -> [Int: [Question]]
     
 }

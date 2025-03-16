@@ -80,17 +80,22 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    /// Resets all table options to disabled state
     func resetEnabledOptions() {
         for option in options {
             option.enabled = false
         }
     }
     
+    /// Restarts the practice session with the same settings
+    /// This will reset the score, timer, and question progress
     func restart() {
         showResults = false
         startPractice()
     }
     
+    /// Advances to the next question or shows results if all questions are answered
+    /// This will also check the user's input for the current question
     func advance() {
         checkUserInput()
         
@@ -104,6 +109,8 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    /// Checks the user's input against the correct answer
+    /// Updates the score if the answer is correct
     func checkUserInput() {
         guard let input = Int(userInput) else {
             return
@@ -116,6 +123,8 @@ class MainViewModel: ObservableObject {
         questions[currentQuestionIndex].response = input
     }
     
+    /// Starts a new practice session
+    /// This will prepare questions, reset progress, and start the timer
     func startPractice() {
         prepareQuestions()
         practiceOngoing = true
@@ -126,6 +135,7 @@ class MainViewModel: ObservableObject {
         currentQuestion = questions[0]
     }
     
+    /// Resets all progress-related data
     func resetQuestionProgress() {
         userScore = 0
         currentQuestionIndex = 0
@@ -133,6 +143,8 @@ class MainViewModel: ObservableObject {
         showResults = false
     }
     
+    /// Stops the current practice session and returns to the setup screen
+    /// This will reset all settings and progress
     func stopPractice() {
         showResults = false
         practiceOngoing = false
@@ -141,7 +153,23 @@ class MainViewModel: ObservableObject {
         stopTimer()
     }
     
-    /// Load the questions based on the user selections
+    /// Starts the timer for tracking practice duration
+    /// The timer updates every second
+    func startTimer() {
+        elapsedTime = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.elapsedTime += 1
+        }
+    }
+    
+    /// Stops the practice timer
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    /// Loads the questions based on the user selections
+    /// This will shuffle and prepare the questions for the practice session
     private func prepareQuestions() {
         let selectedOptions: [Option] = options.filter { $0.enabled }
         var questions: [[Question]] = []
@@ -169,18 +197,6 @@ class MainViewModel: ObservableObject {
         }
         
         self.questions = finalQuestions
-    }
-    
-    func startTimer() {
-        elapsedTime = 0
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.elapsedTime += 1
-        }
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
     }
     
 }
