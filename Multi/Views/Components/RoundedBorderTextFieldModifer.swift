@@ -24,7 +24,7 @@ struct RoundedBorderTextFieldModifier: ViewModifier {
 }
 
 extension View {
-    func roundedBorderTextField(borderColor: Color = .black, cornerRadius: CGFloat = 8, lineWidth: CGFloat = 1) -> some View {
+    func roundedBorderTextField(borderColor: Color = .black, cornerRadius: CGFloat = Constants.Layout.cornerRadius, lineWidth: CGFloat = Constants.Layout.borderWidth) -> some View {
         self.modifier(RoundedBorderTextFieldModifier(borderColor: borderColor, cornerRadius: cornerRadius, lineWidth: lineWidth))
     }
 }

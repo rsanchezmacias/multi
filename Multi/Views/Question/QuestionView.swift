@@ -16,19 +16,19 @@ struct QuestionView: View {
         GeometryReader(content: { geometry in
             NavigationStack {
                 ZStack {
-                    Color.pastelYellow
+                    Constants.Colors.pastelYellow
                         .ignoresSafeArea()
                     
-                    VStack(spacing: 24) {
+                    VStack(spacing: Constants.Spacing.verticalSpacing) {
                         Text(viewModel.formattedTime)
                             .bold()
-                            .font(.system(size: 30, design: .monospaced))
-                            .padding(.top, 16)
+                            .font(.system(size: Constants.Typography.questionNumberSize, design: .monospaced))
+                            .padding(.top, Constants.Spacing.containerPadding)
                         
                         QuestionCardView()
                             .compositingGroup()
-                            .shadow(radius: 8, x: 6, y: 6)
-                            .frame(width: geometry.size.width * 0.75)
+                            .shadow(radius: Constants.Layout.shadowRadius, x: Constants.Layout.shadowOffset.width, y: Constants.Layout.shadowOffset.height)
+                            .frame(width: geometry.size.width * Constants.Layout.questionCardWidth)
                     }
                     .navigationTitle(viewModel.showResults ? "Results" : viewModel.currentQuestion.description)
                     .navigationBarTitleDisplayMode(.inline)
@@ -67,10 +67,10 @@ struct QuestionView: View {
         ZStack {
             Color.black.opacity(0.5)
             ResultView()
-                .frame(width: proxy.size.width * 0.80, height: proxy.size.height * 0.66)
+                .frame(width: proxy.size.width * Constants.Layout.resultsOverlayWidth, height: proxy.size.height * Constants.Layout.resultsOverlayHeight)
                 .padding()
                 .background(Color.white)
-                .clipShape(.rect(cornerRadius: 16))
+                .clipShape(.rect(cornerRadius: Constants.Layout.cornerRadius))
                 .environmentObject(viewModel)
         }
         .frame(maxWidth: .infinity)

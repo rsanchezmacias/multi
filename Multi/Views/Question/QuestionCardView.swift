@@ -14,27 +14,27 @@ struct QuestionCardView: View {
     
     var body: some View {
         
-        VStack(spacing: 24) {
+        VStack(spacing: Constants.Spacing.verticalSpacing) {
             Text(viewModel.questionNumber)
                 .bold()
-                .font(.system(size: 30))
-                .padding(.top, 16)
+                .font(.system(size: Constants.Typography.questionNumberSize))
+                .padding(.top, Constants.Spacing.containerPadding)
             
             VStack {
                 HStack {
                     Text("\(viewModel.currentQuestion.left)")
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: Constants.Typography.operandSize, weight: Constants.Typography.boldWeight))
                     Image(systemName: "xmark")
-                        .font(.system(size: 30))
+                        .font(.system(size: Constants.Typography.operandSize))
                     Text("\(viewModel.currentQuestion.right)")
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: Constants.Typography.operandSize, weight: Constants.Typography.boldWeight))
                     Image(systemName: "equal")
-                        .font(.system(size: 30))
+                        .font(.system(size: Constants.Typography.operandSize))
                 }
                 
                 TextField("?", text: $viewModel.userInput)
                     .focused($isTextFieldFocused)
-                    .font(.system(size: 40))
+                    .font(.system(size: Constants.Typography.answerInputSize))
                     .labelsHidden()
                     .keyboardType(.numberPad)
                     .multilineTextAlignment(.center)
@@ -49,11 +49,11 @@ struct QuestionCardView: View {
                         .foregroundColor(Color.black)
                         .frame(width: 200)
                         .padding()
-                        .background(viewModel.userInput.count > 0 ? Color.pastelYellow : Color.gray)
-                        .cornerRadius(8)
+                        .background(viewModel.userInput.count > 0 ? Constants.Colors.pastelYellow : Color.gray)
+                        .cornerRadius(Constants.Layout.cornerRadius)
                 }
                 .disabled(viewModel.userInput.count == 0)
-                .padding(.bottom, 16)
+                .padding(.bottom, Constants.Spacing.containerPadding)
             }
             
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12D8CC662D87714800E6837B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D8CC642D87714800E6837B /* Constants.swift */; };
 		A93C2CF52C1DFCDE00E731CF /* MultiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93C2CF42C1DFCDE00E731CF /* MultiApp.swift */; };
 		A93C2CF72C1DFCDE00E731CF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93C2CF62C1DFCDE00E731CF /* MainView.swift */; };
 		A93C2CF92C1DFCE100E731CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93C2CF82C1DFCE100E731CF /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12D8CC642D87714800E6837B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A93C2CF12C1DFCDE00E731CF /* Multi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A93C2CF42C1DFCDE00E731CF /* MultiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiApp.swift; sourceTree = "<group>"; };
 		A93C2CF62C1DFCDE00E731CF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12D8CC652D87714800E6837B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				12D8CC642D87714800E6837B /* Constants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A93C2CE82C1DFCDD00E731CF = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 		A93C2CF32C1DFCDE00E731CF /* Multi */ = {
 			isa = PBXGroup;
 			children = (
+				12D8CC652D87714800E6837B /* Utils */,
 				A945524A2C2359620029D682 /* Info.plist */,
 				A93C2D072C1DFE6E00E731CF /* View_Models */,
 				A93C2D062C1DFD8E00E731CF /* Views */,
@@ -255,6 +266,7 @@
 				A93C2D1C2C1E395900E731CF /* CheckmarkButton.swift in Sources */,
 				A93C2D042C1DFD3400E731CF /* Question.swift in Sources */,
 				A93C2CF72C1DFCDE00E731CF /* MainView.swift in Sources */,
+				12D8CC662D87714800E6837B /* Constants.swift in Sources */,
 				A93C2D212C1E84DB00E731CF /* ResultView.swift in Sources */,
 				A93C2D162C1E2FD800E731CF /* QuestionView.swift in Sources */,
 				A93C2D092C1DFE9300E731CF /* TableGenerator.swift in Sources */,

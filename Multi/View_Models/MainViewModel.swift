@@ -13,14 +13,14 @@ class MainViewModel: ObservableObject {
     
     @Dependency(\.tableGenerator) var tableGenerator
     
-    private let optionsRange: ClosedRange<Int> = 2...12
+    private let optionsRange: ClosedRange<Int> = Constants.Practice.tableRange
     
     private var table: [Int: [Question]] = [:]
     @Published var questions: [Question] = []
     @Published var options: [Option] = []
     
-    @Published var numberOfQuestions: Int = 5
-    let numberOfQuestionsOptions: [Int] = [5, 10, 15, 20]
+    @Published var numberOfQuestions: Int = Constants.Practice.defaultQuestionCount
+    let numberOfQuestionsOptions: [Int] = Constants.Practice.questionCountOptions
     
     @Published var practiceOngoing: Bool = false
     @Published var isStartEnabled: Bool = false
@@ -157,7 +157,7 @@ class MainViewModel: ObservableObject {
     /// The timer updates every second
     func startTimer() {
         elapsedTime = 0
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.Practice.timerInterval, repeats: true) { [weak self] _ in
             self?.elapsedTime += 1
         }
     }

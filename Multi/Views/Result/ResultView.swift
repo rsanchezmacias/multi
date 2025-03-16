@@ -19,9 +19,9 @@ struct ResultView: View {
                     .font(.title)
                     .padding()
                 Text("Your score \(viewModel.userScore)/\(viewModel.questions.count)")
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.system(size: Constants.Typography.resultsTextSize, weight: Constants.Typography.semiboldWeight))
                 Text("Time taken: \(viewModel.formattedTime)")
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.system(size: Constants.Typography.resultsTextSize, weight: Constants.Typography.semiboldWeight))
                     .padding(.top, 4)
             }
             
