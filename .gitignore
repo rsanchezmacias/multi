@@ -21,3 +21,6 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 
+## VSCode
+.vscode/
+

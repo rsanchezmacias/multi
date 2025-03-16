@@ -19,19 +19,26 @@ struct QuestionView: View {
                     Color.pastelYellow
                         .ignoresSafeArea()
                     
-                    QuestionCardView()
-                        .compositingGroup()
-                        .shadow(radius: 8, x: 6, y: 6)
-                        .frame(width: geometry.size.width * 0.75)
-                        .navigationTitle(viewModel.showResults ? "Results" : viewModel.currentQuestion.description)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button("Exit") {
-                                    showExitAlert = true
-                                }
+                    VStack(spacing: 24) {
+                        Text(viewModel.formattedTime)
+                            .bold()
+                            .font(.system(size: 30, design: .monospaced))
+                            .padding(.top, 16)
+                        
+                        QuestionCardView()
+                            .compositingGroup()
+                            .shadow(radius: 8, x: 6, y: 6)
+                            .frame(width: geometry.size.width * 0.75)
+                    }
+                    .navigationTitle(viewModel.showResults ? "Results" : viewModel.currentQuestion.description)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button("Exit") {
+                                showExitAlert = true
                             }
                         }
+                    }
                     
                     if viewModel.showResults {
                         resultsOverlay(proxy: geometry)

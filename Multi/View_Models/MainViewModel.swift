@@ -33,6 +33,16 @@ class MainViewModel: ObservableObject {
     
     @Published var showResults: Bool = false
     
+    // MARK: - Timer
+    @Published var elapsedTime: TimeInterval = 0
+    private var timer: Timer?
+    
+    var formattedTime: String {
+        let minutes = Int(elapsedTime) / 60
+        let seconds = Int(elapsedTime) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
     var questionNumber: String {
         return "Question \(currentQuestionIndex + 1) of \(questions.count)"
     }
@@ -86,6 +96,7 @@ class MainViewModel: ObservableObject {
         
         if currentQuestionIndex == questions.count - 1 {
             showResults = true
+            stopTimer()
         } else {
             userInput = ""
             currentQuestionIndex += 1
@@ -109,6 +120,7 @@ class MainViewModel: ObservableObject {
         prepareQuestions()
         practiceOngoing = true
         userInput = ""
+        startTimer()
         
         resetQuestionProgress()
         currentQuestion = questions[0]
@@ -126,6 +138,7 @@ class MainViewModel: ObservableObject {
         practiceOngoing = false
         resetEnabledOptions()
         numberOfQuestions = 5
+        stopTimer()
     }
     
     /// Load the questions based on the user selections
@@ -156,6 +169,18 @@ class MainViewModel: ObservableObject {
         }
         
         self.questions = finalQuestions
+    }
+    
+    func startTimer() {
+        elapsedTime = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.elapsedTime += 1
+        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
 }

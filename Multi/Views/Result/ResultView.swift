@@ -20,6 +20,9 @@ struct ResultView: View {
                     .padding()
                 Text("Your score \(viewModel.userScore)/\(viewModel.questions.count)")
                     .font(.system(size: 18, weight: .semibold))
+                Text("Time taken: \(viewModel.formattedTime)")
+                    .font(.system(size: 18, weight: .semibold))
+                    .padding(.top, 4)
             }
             
             List(Array(viewModel.questions.enumerated()), id: \.element.id) { (index, question) in
